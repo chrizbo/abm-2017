@@ -39,3 +39,7 @@ Thumbs.db
 # Jupiter generated files #
 ###########################
 .ipynb_checkpoints
+
+# NetLogo generated files #
+###########################
+.tmp.nlogo
