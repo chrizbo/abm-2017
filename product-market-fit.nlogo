@@ -1,5 +1,3 @@
-globals [ traits features ]
-
 breed [ producers producer ]
 breed [ consumers consumer ]
 
@@ -9,13 +7,11 @@ producers-own [
 
 consumers-own [
   underserved-need
+  need-met?
 ]
 
 to setup
   ca
-
-  set traits 1
-  set features 2
 
   ;; create a sample producer
   create-producers 1
@@ -31,6 +27,7 @@ to setup
   ask consumers [
     setxy random-xcor random-ycor
     set underserved-need n-values traits [(random features) + 1]
+    set need-met? false
   ]
 
   ;; network them together
@@ -42,12 +39,18 @@ to setup
 end
 
 to go
-  ;; check to see if they have product market fit
+  if count consumers with [ need-met? ] = count consumers [
+    print "Product market fit!!!"
+    stop
+  ]
+
   ask consumers [
+    ;; check to see if they have product market fit
     ifelse product-market-fit? self one-of link-neighbors
     [
-      print "Product market fit!!!"
+      ;; do nothing for now
     ]
+    ;; if not, keep randomly changing the producers product
     [
       ask link-neighbors [
         set value-prop n-values traits [(random features) + 1]
@@ -55,9 +58,18 @@ to go
     ]
   ]
 
-  ;; if not, keep randomly changing the producers product
-
   tick
+end
+
+to reset
+  clear-all-plots
+
+  ask consumers [
+    set underserved-need n-values traits [(random features) + 1]
+    set need-met? false
+  ]
+
+  reset-ticks
 end
 
 to-report product-market-fit? [ consumer1 producer1 ]
@@ -71,7 +83,12 @@ to-report product-market-fit? [ consumer1 producer1 ]
 
   print same
 
-  report same = length underserved-need1
+  if same = length underserved-need1 [
+    ask consumer1 [ set need-met? true ]
+    report true
+  ]
+
+  report false
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -102,10 +119,10 @@ ticks
 30.0
 
 BUTTON
-14
-46
-80
-79
+24
+147
+90
+180
 NIL
 setup
 NIL
@@ -119,10 +136,10 @@ NIL
 1
 
 BUTTON
-101
-48
-164
-81
+111
+149
+174
+182
 NIL
 go
 T
@@ -134,6 +151,53 @@ NIL
 NIL
 NIL
 1
+
+BUTTON
+68
+212
+131
+245
+NIL
+reset
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+SLIDER
+18
+23
+190
+56
+traits
+traits
+0
+10
+2.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+19
+81
+191
+114
+features
+features
+0
+10
+3.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
