@@ -42,4 +42,4 @@ Thumbs.db
 
 # NetLogo generated files #
 ###########################
-.tmp.nlogo
+.*.tmp.nlogo
