@@ -18,6 +18,7 @@ to setup
 
   ask producers [
     setxy random-xcor random-ycor
+    set shape "house"
     set value-prop n-values traits [(random features) + 1]
   ]
 
@@ -26,6 +27,7 @@ to setup
 
   ask consumers [
     setxy random-xcor random-ycor
+    set shape "person"
     set underserved-need n-values traits [(random features) + 1]
     set need-met? false
   ]
@@ -178,7 +180,7 @@ traits
 traits
 0
 10
-2.0
+3.0
 1
 1
 NIL
@@ -193,7 +195,7 @@ features
 features
 0
 10
-3.0
+4.0
 1
 1
 NIL
