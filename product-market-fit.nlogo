@@ -1,3 +1,5 @@
+extensions [ nw ]
+
 breed [ producers producer ]
 breed [ consumers consumer ]
 
@@ -13,28 +15,14 @@ consumers-own [
 to setup
   ca
 
-  ;; create a sample producer
-  create-producers 1
 
-  ask producers [
+
+
     setxy random-xcor random-ycor
-    set shape "house"
-    set value-prop n-values traits [(random features) + 1]
-  ]
-
-  ;; create a sample consumer
-  create-consumers 1
-
-  ask consumers [
-    setxy random-xcor random-ycor
-    set shape "person"
     set underserved-need n-values traits [(random features) + 1]
     set need-met? false
   ]
 
-  ;; network them together
-  ask consumers [
-    create-link-with one-of producers
   ]
 
   reset-ticks
@@ -48,14 +36,7 @@ to go
 
   ask consumers [
     ;; check to see if they have product market fit
-    ifelse product-market-fit? self one-of link-neighbors
-    [
-      ;; do nothing for now
-    ]
     ;; if not, keep randomly changing the producers product
-    [
-      ask link-neighbors [
-        set value-prop n-values traits [(random features) + 1]
       ]
     ]
   ]
@@ -86,7 +67,6 @@ to-report product-market-fit? [ consumer1 producer1 ]
   print same
 
   if same = length underserved-need1 [
-    ask consumer1 [ set need-met? true ]
     report true
   ]
 
