@@ -9,34 +9,55 @@ producers-own [
 
 consumers-own [
   underserved-need
+  current-value-prop
   need-met?
 ]
 
 to setup
   ca
 
+  let num-agents 50
 
+  set-default-shape producers "house"
+  set-default-shape consumers "person"
 
-
+  nw:generate-preferential-attachment consumers links num-agents [
     setxy random-xcor random-ycor
+    set color white
     set underserved-need n-values traits [(random features) + 1]
+    set current-value-prop n-values traits [ 0 ]
     set need-met? false
   ]
 
+  ;; create a producer
+  create-producers 1
+
+  ask producers [
+    setxy 0 0
+    set size 2
+    set color red
+    set value-prop n-values traits [(random features) + 1]
   ]
 
   reset-ticks
 end
 
 to go
-  if count consumers with [ need-met? ] = count consumers [
+  if count consumers with [ color = white ] = 0 [
     print "Product market fit!!!"
     stop
   ]
 
   ask consumers [
-    ;; check to see if they have product market fit
-    ;; if not, keep randomly changing the producers product
+    ifelse sum product-market-distance self one-of producers = 0 [
+      ;; if the producer(s) matches the consumer's need then mark it
+      set color red
+      set current-value-prop one-of producers
+      set need-met? true
+    ] [
+      ;; if not, have the producer(s) randomly change
+      ask one-of producers [
+        set value-prop n-values traits [ (random features) + 1 ]
       ]
     ]
   ]
@@ -71,6 +92,15 @@ to-report product-market-fit? [ consumer1 producer1 ]
   ]
 
   report false
+end
+
+to-report product-market-distance [ consumer1 producer1 ]
+  let value-prop1 [ value-prop ] of producer1
+  let underserved-need1 [ underserved-need ] of consumer1
+
+  let product-market-difference ( map [ [ a b ] -> a - b ] value-prop1 underserved-need1 )
+
+  report product-market-difference
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -193,6 +223,10 @@ This NetLogo model simulates the process by which producers find product market 
 For more information see this Mind the Product post:
 
 http://www.mindtheproduct.com/2017/07/the-playbook-for-achieving-product-market-fit/
+
+Also, we are thinking about how a consumer has a pull of their current solution vs. the pull to a new solution. This is referred to as "the forces of progress" in the Jobs to Be Done framework:
+
+![Forces of Progress](http://jobstobedone.org/wp-content/uploads/2012/02/Screen-Shot-2012-10-29-at-7.16.58-PM.png)
 
 ## HOW IT WORKS
 
