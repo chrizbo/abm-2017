@@ -51,7 +51,7 @@ to go
 
   ;; temp cycle of checking for product market fit between consumers and producers for now
   ask consumers [
-    ifelse sum product-market-distance self one-of producers = 0 [
+    ifelse product-market-fit? self one-of producers [
       ;; if the producer(s) matches the consumer's need then mark it
       set color red
       set current-value-prop one-of producers
@@ -100,22 +100,11 @@ end
 ;; to-report consumer-decision method to decide if the consumer should buy the producers value-prop based on distance away within some threshold
 
 to-report product-market-fit? [ consumer1 producer1 ]
-  ;; check if the producer's value prop matches the consumer's underserved need
-  let value-prop1 [ value-prop ] of producer1
-  let underserved-need1 [ underserved-need ] of consumer1
-  let same 0
-
-  ;; change this to use the product-market-distance report to get distance between them
-  ( foreach value-prop1 underserved-need1
-    [ [ a b ] -> if a = b [ set same same + 1 ] ] )
-
-  print same
-
-  if same = length underserved-need1 [
-    report true
+  ifelse sum product-market-distance consumer1 producer1 = 0 [
+    return true
+  ] [
+    return false
   ]
-
-  report false
 end
 
 to-report product-market-distance [ consumer1 producer1 ]
