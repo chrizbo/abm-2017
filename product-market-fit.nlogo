@@ -16,11 +16,13 @@ consumers-own [
 to setup
   ca
 
+  ;; setting this manually for now, may expose via interface soon
   let num-agents 50
 
   set-default-shape producers "house"
   set-default-shape consumers "person"
 
+  ;; setup network of consumers
   nw:generate-preferential-attachment consumers links num-agents [
     setxy random-xcor random-ycor
     set color white
@@ -30,9 +32,7 @@ to setup
   ]
 
   ;; create a producer
-  create-producers 1
-
-  ask producers [
+  create-producers 1 [
     setxy 0 0
     set size 2
     set color red
@@ -43,11 +43,13 @@ to setup
 end
 
 to go
+  ;; if all consumers have bought the solution then stop!
   if count consumers with [ color = white ] = 0 [
     print "Product market fit!!!"
     stop
   ]
 
+  ;; temp cycle of checking for product market fit between consumers and producers for now
   ask consumers [
     ifelse sum product-market-distance self one-of producers = 0 [
       ;; if the producer(s) matches the consumer's need then mark it
@@ -62,19 +64,38 @@ to go
     ]
   ]
 
+  ;; consumers should look at other consumers connected to them and alter their underserved-need to be more similar to their peers
+  ;; like the culture spread by Alexrod
+
+  ;; consumers should see if the producer's value-prop is better than their current-value-prop in fitting their underserved-need
+  ;; if so, buy new producers value-prop
+
+  ;; Q: should consumers 'un-buy' the solution if their underserved-need is too different from their current value-prop?
+  ;; should there be a list of other producers that are waiting in the wing to take on the consumers with different value-props?
+
+  ;; have producers, based on their strategy, alter their value-prop based on feedback from customers
+
   tick
 end
 
 to reset
   clear-all-plots
 
+  ;; reset consumers
   ask consumers [
     set underserved-need n-values traits [(random features) + 1]
     set need-met? false
   ]
 
+  ;; reset producer
+  ask producers [
+    set value-prop n-values traits [(random features) + 1]
+  ]
+
   reset-ticks
 end
+
+;; to-report consumer-decision method to decide if the consumer should buy the producers value-prop based on distance away within some threshold
 
 to-report product-market-fit? [ consumer1 producer1 ]
   ;; check if the producer's value prop matches the consumer's underserved need
@@ -82,6 +103,7 @@ to-report product-market-fit? [ consumer1 producer1 ]
   let underserved-need1 [ underserved-need ] of consumer1
   let same 0
 
+  ;; change this to use the product-market-distance report to get distance between them
   ( foreach value-prop1 underserved-need1
     [ [ a b ] -> if a = b [ set same same + 1 ] ] )
 
@@ -102,6 +124,14 @@ to-report product-market-distance [ consumer1 producer1 ]
 
   report product-market-difference
 end
+
+;; producer strategies
+
+;; constant explore (custom solutions) - randomly change value-prop every sale
+
+;; constant exploit (find a solution and sell it) - sell once and then stay static for future sales
+
+;; mixure of explore vs. exploit - small adjustments based on feedback from customers
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
