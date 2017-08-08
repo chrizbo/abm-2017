@@ -44,7 +44,7 @@ end
 
 to go
   ;; if all consumers have bought the solution then stop!
-  if count consumers with [ color = white ] = 0 [
+  if count consumers with [ need-met? = false ] = 0 [
     print "Product market fit!!!"
     stop
   ]
@@ -79,11 +79,11 @@ to go
 end
 
 to reset
-  clear-all-plots
-
   ;; reset consumers
   ask consumers [
+    set color white
     set underserved-need n-values traits [(random features) + 1]
+    set current-value-prop n-values traits [ 0 ]
     set need-met? false
   ]
 
@@ -91,6 +91,8 @@ to reset
   ask producers [
     set value-prop n-values traits [(random features) + 1]
   ]
+
+  clear-all-plots
 
   reset-ticks
 end
@@ -134,10 +136,10 @@ end
 ;; mixure of explore vs. exploit - small adjustments based on feedback from customers
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
-10
-647
-448
+242
+11
+679
+449
 -1
 -1
 13.0
@@ -240,6 +242,24 @@ features
 1
 NIL
 HORIZONTAL
+
+PLOT
+12
+277
+212
+427
+consumers sold
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"plot-pen-reset" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot count consumers with [ need-met? ]"
 
 @#$#@#$#@
 ## WHAT IS IT?
