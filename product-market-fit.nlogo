@@ -26,7 +26,10 @@ to setup
   nw:generate-preferential-attachment consumers links num-agents [
     setxy random-xcor random-ycor
     set color white
+
+    ;; Q: do we need to set the underserved-need to be similar between consumers?
     set underserved-need n-values traits [(random features) + 1]
+
     set current-value-prop n-values traits [ 0 ]
     set need-met? false
   ]
@@ -36,7 +39,7 @@ to setup
     setxy 0 0
     set size 2
     set color red
-    set value-prop n-values traits [(random features) + 1]
+    init-value-prop
   ]
 
   reset-ticks
@@ -49,31 +52,27 @@ to go
     stop
   ]
 
-  ;; temp cycle of checking for product market fit between consumers and producers for now
-  ask consumers [
-    ifelse product-market-fit? self one-of producers [
-      ;; if the producer(s) matches the consumer's need then mark it
-      set color red
-      set current-value-prop one-of producers
-      set need-met? true
-    ] [
-      ;; if not, have the producer(s) randomly change
-      ask one-of producers [
-        set value-prop n-values traits [ (random features) + 1 ]
-      ]
-    ]
-  ]
-
   ;; consumers should look at other consumers connected to them and alter their underserved-need to be more similar to their peers
   ;; like the culture spread by Alexrod
 
   ;; consumers should see if the producer's value-prop is better than their current-value-prop in fitting their underserved-need
   ;; if so, buy new producers value-prop
+  ask consumers [
+    if product-market-fit? self one-of producers [
+      ;; if the producer(s) matches the consumer's need then mark it
+      set color red
+      set current-value-prop one-of producers
+      set need-met? true
+    ]
+  ]
 
   ;; Q: should consumers 'un-buy' the solution if their underserved-need is too different from their current value-prop?
   ;; should there be a list of other producers that are waiting in the wing to take on the consumers with different value-props?
 
   ;; have producers, based on their strategy, alter their value-prop based on feedback from customers
+  ask producers [
+    update-value-prop [ 0 ]
+  ]
 
   tick
 end
@@ -89,7 +88,7 @@ to reset
 
   ;; reset producer
   ask producers [
-    set value-prop n-values traits [(random features) + 1]
+    init-value-prop
   ]
 
   clear-all-plots
@@ -117,12 +116,26 @@ to-report product-market-distance [ consumer1 producer1 ]
 end
 
 ;; producer strategies
+to init-value-prop
+  set value-prop n-values traits [(random features) + 1]
+end
+
+to update-value-prop [ product-market-difference ]
+  ;; random only for now
+  update-value-prop-random product-market-difference
+end
 
 ;; constant explore (custom solutions) - randomly change value-prop every sale
+to update-value-prop-random [ product-market-difference ]
+  ;; product-market-difference is ignored
+  set value-prop n-values traits [(random features) + 1]
+end
 
 ;; constant exploit (find a solution and sell it) - sell once and then stay static for future sales
 
-;; mixure of explore vs. exploit - small adjustments based on feedback from customers
+;; mixture of explore vs. exploit - small adjustments based on feedback from customers
+
+;; mixture of explore vs. exploit - batches of customer feedback to make adjustments
 @#$#@#$#@
 GRAPHICS-WINDOW
 242
