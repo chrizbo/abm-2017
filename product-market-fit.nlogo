@@ -48,7 +48,6 @@ end
 to go
   ;; if all consumers have bought the solution then stop!
   if count consumers with [ need-met? = false ] = 0 [
-    print "Product market fit!!!"
     stop
   ]
 
