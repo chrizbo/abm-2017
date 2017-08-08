@@ -101,9 +101,9 @@ end
 
 to-report product-market-fit? [ consumer1 producer1 ]
   ifelse sum product-market-distance consumer1 producer1 = 0 [
-    return true
+    report true
   ] [
-    return false
+    report false
   ]
 end
 
