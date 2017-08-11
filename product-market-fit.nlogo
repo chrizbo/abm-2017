@@ -120,12 +120,17 @@ to init-value-prop
 end
 
 to update-value-prop [ product-market-difference ]
-  ;; random only for now
-  update-value-prop-random product-market-difference
+  if producer-strategy = "random" [
+    update-value-prop-random
+  ]
+
+  if producer-strategy = "fixed" [
+    ;; fixed does nothing after the first generation
+  ]
 end
 
 ;; constant explore (custom solutions) - randomly change value-prop every sale
-to update-value-prop-random [ product-market-difference ]
+to update-value-prop-random
   ;; product-market-difference is ignored
   set value-prop n-values traits [(random features) + 1]
 end
@@ -164,10 +169,10 @@ ticks
 30.0
 
 BUTTON
-24
-147
-90
-180
+32
+193
+98
+226
 NIL
 setup
 NIL
@@ -181,10 +186,10 @@ NIL
 1
 
 BUTTON
-111
-149
-174
+119
+195
 182
+228
 NIL
 go
 T
@@ -198,10 +203,10 @@ NIL
 1
 
 BUTTON
-68
-212
-131
-245
+76
+258
+139
+291
 NIL
 reset
 NIL
@@ -245,10 +250,10 @@ NIL
 HORIZONTAL
 
 PLOT
-12
-277
-212
-427
+18
+300
+218
+450
 consumers sold
 NIL
 NIL
@@ -261,6 +266,16 @@ false
 "plot-pen-reset" ""
 PENS
 "default" 1.0 0 -16777216 true "" "plot count consumers with [ need-met? ]"
+
+CHOOSER
+18
+131
+190
+176
+producer-strategy
+producer-strategy
+"random" "fixed"
+0
 
 @#$#@#$#@
 ## WHAT IS IT?
