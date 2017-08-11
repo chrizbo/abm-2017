@@ -53,11 +53,15 @@ to go
 
   ;; consumers should look at other consumers connected to them and alter their underserved-need to be more similar to their peers
   ;; like the culture spread by Alexrod
+  let last-diff [ 0 ]
 
   ;; consumers should see if the producer's value-prop is better than their current-value-prop in fitting their underserved-need
   ;; if so, buy new producers value-prop
   ask consumers [
-    if product-market-fit? self one-of producers [
+    set last-diff product-market-distance self one-of producers
+
+    ;; if product-market-fit? self one-of producers [
+    if sum last-diff = 0 [
       ;; if the producer(s) matches the consumer's need then mark it
       set color red
       set current-value-prop one-of producers
@@ -65,13 +69,13 @@ to go
     ]
   ]
 
-  ;; Q: should consumers 'un-buy' the solution if their underserved-need is too different from their current value-prop?
-  ;; should there be a list of other producers that are waiting in the wing to take on the consumers with different value-props?
-
   ;; have producers, based on their strategy, alter their value-prop based on feedback from customers
   ask producers [
-    update-value-prop [ 0 ]
+    update-value-prop last-diff
   ]
+
+  ;; Q: should consumers 'un-buy' the solution if their underserved-need is too different from their current value-prop?
+  ;; should there be a list of other producers that are waiting in the wing to take on the consumers with different value-props?
 
   tick
 end
@@ -124,6 +128,11 @@ to update-value-prop [ product-market-difference ]
     update-value-prop-random
   ]
 
+  if producer-strategy = "mixed" [
+    let current-diff product-market-difference
+    update-value-prop-mixed current-diff
+  ]
+
   if producer-strategy = "fixed" [
     ;; fixed does nothing after the first generation
   ]
@@ -135,9 +144,10 @@ to update-value-prop-random
   set value-prop n-values traits [(random features) + 1]
 end
 
-;; constant exploit (find a solution and sell it) - sell once and then stay static for future sales
-
 ;; mixture of explore vs. exploit - small adjustments based on feedback from customers
+to update-value-prop-mixed [ product-market-difference ]
+  set value-prop ( map [ [ a b ] -> a - b ] value-prop product-market-difference )
+end
 
 ;; mixture of explore vs. exploit - batches of customer feedback to make adjustments
 @#$#@#$#@
@@ -274,8 +284,8 @@ CHOOSER
 176
 producer-strategy
 producer-strategy
-"random" "fixed"
-0
+"random" "mixed" "fixed"
+2
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -643,6 +653,25 @@ NetLogo 6.0.1
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
+<experiments>
+  <experiment name="Strategy comparisons" repetitions="10" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="1000"/>
+    <metric>count consumers with [ need-met? ]</metric>
+    <enumeratedValueSet variable="traits">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="producer-strategy">
+      <value value="&quot;random&quot;"/>
+      <value value="&quot;mixed&quot;"/>
+      <value value="&quot;fixed&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="features">
+      <value value="4"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default
