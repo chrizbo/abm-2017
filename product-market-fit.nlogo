@@ -294,15 +294,11 @@ producer-strategy
 
 This NetLogo model simulates the process by which producers find product market fit with consumers. Product market fit is how a producer's value proposition of their product matches the consumer's underserved needs. 
 
-![Product-Market Fit Pyramid](http://3lsqjy1sj7i027fcn749gutj.wpengine.netdna-cdn.com/wp-content/uploads/2017/07/d21e0b29-d998-4799-86cc-57c614c0ec86_pyramid.png)
+![Product-Market Fit Pyramid](https://github.com/chrizbo/abm-2017/blob/master/product-market-fit-docs/product-market-fit.png?raw=true)
 
 For more information see this Mind the Product post:
 
 http://www.mindtheproduct.com/2017/07/the-playbook-for-achieving-product-market-fit/
-
-Also, we are thinking about how a consumer has a pull of their current solution vs. the pull to a new solution. This is referred to as "the forces of progress" in the Jobs to Be Done framework:
-
-![Forces of Progress](http://jobstobedone.org/wp-content/uploads/2012/02/Screen-Shot-2012-10-29-at-7.16.58-PM.png)
 
 ## HOW IT WORKS
 
