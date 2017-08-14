@@ -309,6 +309,88 @@ effort
 11
 
 @#$#@#$#@
+# ABM course info
+
+## Model Scope
+
+Finding product/market fit through interactions with consumers. There are many different product development strategies (e.g. early feedback, getting to market first, etc.) and this model starts to analyze the impact is for these different strategies on longer term sales (the end goal of startups).
+
+This NetLogo model simulates the process by which producers find product market fit with consumers. Product market fit is how a producer's value proposition of their product matches the consumer's underserved needs. 
+
+The goal of the model is to see how much effort is required to find product-market fit based on different product development strategies. 
+
+## Agent Selection
+
+Two principal types of agents:
+
+* Producers - creators of products or services that want to have consumers eventually buy them.
+* Consumers - people that need or want products and services and are willing to buy them if they meet enough of their needs at the right time.
+
+## Agent Properties
+
+Producers:
+
+* value-prop - a culture-like set of traits and features meant to represent the value proposition for the producer.
+* effort - amount of effort in changing the value proposition to find product-market fit.
+
+Consumers:
+
+* underserved-need - a culture-like set of traits and features meant to represent the ideal need for the consumer. 
+* current-value-prop - the current product that the consumer has purchased.
+* need-met? - whether or not the consumer has purchased a solution.
+
+## Agent Actions
+
+Producers:
+
+* Attempt to sell their product to a consumer
+* Update their value proposition based on the customer's feedback
+
+Customers:
+
+* Buy a product from a producer if the value proposition meets their needs
+
+## Environment
+
+The environment is a network of consumers that the producer has access to.
+
+## Order of Events
+
+1. Ask every consumer to compare their unmet need with the producers value proposition
+2. If the consumer is matched then their need is met
+3. Ask producer to update their value proposition based on their strategy
+
+## Inputs and Output
+
+Inputs:
+
+* Number of traits and features per trait
+* Producer's strategy
+
+Outputs:
+
+* Total effort expended by the producer
+* Graph of number of consumers that have bought the producer's product
+* World network of consumers that turn red when they have bought the producer's product
+
+## Model Execution
+
+The model will run until all consumers are sold or 10,000 ticks, whichever comes first. 
+
+A Behavior Space experiment has been setup to explore the different producer strategies.
+
+## User Interface
+
+* Setup - creates a new network of consumers (with unmet needs) and producer (with a value proposition)
+* Reset - keeps the consumer network, but resets the purchases
+* Go - starts the model running
+
+## Model Documentation
+
+See the standard ABM info content below.
+
+# Standard ABM info content
+
 ## WHAT IS IT?
 
 Finding product/market fit through interactions with consumers. There are many different product development strategies (e.g. early feedback, getting to market first, etc.) and this model starts to analyze the impact is for these different strategies on longer term sales (the end goal of startups).
@@ -330,7 +412,7 @@ Two principal types of agents:
 * Producers - creators of products or services that want to have consumers eventually buy them.
 * Consumers - people that need or want products and services and are willing to buy them if they meet enough of their needs at the right time.
 
-Producers have a value propisition that is in the format of a product hypothesis. This is the product that they are testing out, building, or selling. This will be represented as an array of features. Inspired by Alexrod and his work on culture dissemination:
+Producers have a value proposition that is in the format of a product hypothesis. This is the product that they are testing out, building, or selling. This will be represented as an array of features. Inspired by Alexrod and his work on culture dissemination:
 
 https://deepblue.lib.umich.edu/bitstream/handle/2027.42/67489/10.1177_0022002797041002001.pdf
 
@@ -340,13 +422,13 @@ The producers can use different strategies when getting feedback from consumers:
 
 * Fixed - leave things the way they are (no feedback and sure of their solution)
 * Random - randomly change their offering (no feedback and not sure of their solution)
-* Feedback - based on the mismatch between the value propisition and the underserved need the producer will update their offering.
+* Feedback - based on the mismatch between the value proposition and the underserved need the producer will update their offering.
 
-When they change their product effort is expended to change the value propisition of the product. 
+When they change their product effort is expended to change the value proposition of the product. 
 
 ## HOW TO USE IT
 
-As with the Axelrod model you can change the number of traits and features for the value propisition (and underserved need for consumers). 
+As with the Axelrod model you can change the number of traits and features for the value proposition (and underserved need for consumers). 
 
 Also, you can select which strategy the producer will use through the chooser box. 
 
@@ -354,8 +436,8 @@ Setup will generate a new set of consumers and one producer. Reset will keep the
 
 There are two main ways to monitor the model as it progresses:
 
-* Effort - the raw amount of effort used by the producer to update their value propisition.
-* Consumers sold - the graph of consumers that have purchased the producers product based on matching their underserved need.
+* Effort - the raw amount of effort used by the producer to update their value proposition.
+* Consumers sold - the graph of consumers that have purchased the producer's product based on matching their underserved need.
 
 In the world you will see all consumers start with a white color when they do not have a solution. When they are sold a solution they turn red.
 
@@ -396,13 +478,15 @@ http://ccl.northwestern.edu/netlogo/models/community/Axelrod%20-%20Network
 
 ## CREDITS AND REFERENCES
 
-Axelrod's The Dissemination of Culture paper has been a huge inspiration for how to model the producer's value propisition and the consumer's unmet need:
+Axelrod's The Dissemination of Culture paper has been a huge inspiration for how to model the producer's value proposition and the consumer's unmet need:
 
 https://deepblue.lib.umich.edu/bitstream/handle/2027.42/67489/10.1177_0022002797041002001.pdf
 
 You can find the latest version of the model on github:
 
 https://github.com/chrizbo/abm-2017
+
+Thank you.
 @#$#@#$#@
 default
 true
