@@ -719,7 +719,7 @@ NetLogo 6.0.1
     </enumeratedValueSet>
     <enumeratedValueSet variable="producer-strategy">
       <value value="&quot;random&quot;"/>
-      <value value="&quot;mixed&quot;"/>
+      <value value="&quot;feedback&quot;"/>
       <value value="&quot;fixed&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="features">
