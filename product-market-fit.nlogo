@@ -5,6 +5,7 @@ breed [ consumers consumer ]
 
 producers-own [
   value-prop
+  effort
 ]
 
 consumers-own [
@@ -39,6 +40,7 @@ to setup
     setxy 0 0
     set size 2
     set color red
+    set effort 0
     init-value-prop
   ]
 
@@ -91,6 +93,7 @@ to reset
 
   ;; reset producer
   ask producers [
+    set effort 0
     init-value-prop
   ]
 
@@ -142,11 +145,13 @@ end
 to update-value-prop-random
   ;; product-market-difference is ignored
   set value-prop n-values traits [(random features) + 1]
+  set effort effort + 1
 end
 
 ;; mixture of explore vs. exploit - small adjustments based on feedback from customers
 to update-value-prop-mixed [ product-market-difference ]
   set value-prop ( map [ [ a b ] -> a - b ] value-prop product-market-difference )
+  set effort effort + 1
 end
 
 ;; mixture of explore vs. exploit - batches of customer feedback to make adjustments
@@ -179,10 +184,10 @@ ticks
 30.0
 
 BUTTON
-32
-193
-98
-226
+20
+194
+86
+227
 NIL
 setup
 NIL
@@ -196,9 +201,9 @@ NIL
 1
 
 BUTTON
-119
+161
 195
-182
+224
 228
 NIL
 go
@@ -213,10 +218,10 @@ NIL
 1
 
 BUTTON
-76
-258
-139
-291
+92
+194
+155
+227
 NIL
 reset
 NIL
@@ -232,7 +237,7 @@ NIL
 SLIDER
 18
 23
-190
+219
 56
 traits
 traits
@@ -247,7 +252,7 @@ HORIZONTAL
 SLIDER
 19
 81
-191
+221
 114
 features
 features
@@ -280,12 +285,23 @@ PENS
 CHOOSER
 18
 131
-190
+221
 176
 producer-strategy
 producer-strategy
 "random" "mixed" "fixed"
-2
+1
+
+MONITOR
+25
+243
+187
+288
+effort
+[ effort ] of one-of producers
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -655,6 +671,7 @@ NetLogo 6.0.1
     <go>go</go>
     <timeLimit steps="1000"/>
     <metric>count consumers with [ need-met? ]</metric>
+    <metric>[ effort ] of one-of producers</metric>
     <enumeratedValueSet variable="traits">
       <value value="3"/>
     </enumeratedValueSet>
