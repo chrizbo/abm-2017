@@ -53,6 +53,11 @@ to go
     stop
   ]
 
+  ;; stop if you hit 10,000 ticks
+  if ticks > 10000 [
+    stop
+  ]
+
   ;; consumers should look at other consumers connected to them and alter their underserved-need to be more similar to their peers
   ;; like the culture spread by Alexrod
   let last-diff [ 0 ]
