@@ -323,8 +323,8 @@ The goal of the model is to see how much effort is required to find product-mark
 
 Two principal types of agents:
 
-* Producers - creators of products or services that want to have consumers eventually buy them.
-* Consumers - people that need or want products and services and are willing to buy them if they meet enough of their needs at the right time.
+* Producer (house) - creators of products or services that want to have consumers eventually buy them.
+* Consumers (people) - people that need or want products and services and are willing to buy them if they meet enough of their needs at the right time.
 
 ## Agent Properties
 
@@ -356,9 +356,11 @@ The environment is a network of consumers that the producer has access to.
 
 ## Order of Events
 
-1. Ask every consumer to compare their unmet need with the producers value proposition
-2. If the consumer is matched then their need is met
-3. Ask producer to update their value proposition based on their strategy
+1. SETUP consumer network and producer
+2. When GO ask every consumer to compare their unmet need with the producers value proposition
+3. If the consumer is matched then their need is met
+4. Ask producer to update their value proposition based on their strategy
+5. Go back to 2 and run until all consumers are sold (or timeout)
 
 ## Inputs and Output
 
