@@ -136,9 +136,9 @@ to update-value-prop [ product-market-difference ]
     update-value-prop-random
   ]
 
-  if producer-strategy = "mixed" [
+  if producer-strategy = "feedback" [
     let current-diff product-market-difference
-    update-value-prop-mixed current-diff
+    update-value-prop-feedback current-diff
   ]
 
   if producer-strategy = "fixed" [
@@ -154,7 +154,7 @@ to update-value-prop-random
 end
 
 ;; mixture of explore vs. exploit - small adjustments based on feedback from customers
-to update-value-prop-mixed [ product-market-difference ]
+to update-value-prop-feedback [ product-market-difference ]
   set value-prop ( map [ [ a b ] -> a - b ] value-prop product-market-difference )
   set effort effort + 1
 end
@@ -294,8 +294,8 @@ CHOOSER
 176
 producer-strategy
 producer-strategy
-"random" "mixed" "fixed"
-1
+"random" "feedback" "fixed"
+0
 
 MONITOR
 25
