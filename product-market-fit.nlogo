@@ -363,6 +363,10 @@ In the world you will see all consumers start with a white color when they do no
 
 What has been most interesting so far is that the random strategy uses slightly more effort on average, but does about as well as the feedback strategy. 
 
+More analysis of the different strategy's results can be found in the analysis notebook:
+
+https://github.com/chrizbo/abm-2017/blob/master/product-market-fit-analysis.ipynb
+
 ## THINGS TO TRY
 
 A few things to try:
@@ -386,8 +390,6 @@ A few other aspects that would extend the model:
 
 ## RELATED MODELS
 
-(models in the NetLogo Models Library and elsewhere which are of related interest)
-
 The inspiration for the culture aspects was from this model:
 
 http://ccl.northwestern.edu/netlogo/models/community/Axelrod%20-%20Network
@@ -397,6 +399,10 @@ http://ccl.northwestern.edu/netlogo/models/community/Axelrod%20-%20Network
 Axelrod's The Dissemination of Culture paper has been a huge inspiration for how to model the producer's value propisition and the consumer's unmet need:
 
 https://deepblue.lib.umich.edu/bitstream/handle/2027.42/67489/10.1177_0022002797041002001.pdf
+
+You can find the latest version of the model on github:
+
+https://github.com/chrizbo/abm-2017
 @#$#@#$#@
 default
 true
