@@ -311,7 +311,7 @@ effort
 @#$#@#$#@
 ## WHAT IS IT?
 
-(a general understanding of what the model is trying to show or explain)
+Finding product/market fit through interactions with consumers. There are many different product development strategies (e.g. early feedback, getting to market first, etc.) and this model starts to analyze the impact is for these different strategies on longer term sales (the end goal of startups).
 
 This NetLogo model simulates the process by which producers find product market fit with consumers. Product market fit is how a producer's value proposition of their product matches the consumer's underserved needs. 
 
@@ -321,45 +321,82 @@ For more information see this Mind the Product post:
 
 http://www.mindtheproduct.com/2017/07/the-playbook-for-achieving-product-market-fit/
 
+The goal of the model is to see how much effort is required to find product-market fit based on different product development strategies. 
+
 ## HOW IT WORKS
 
-(what rules the agents use to create the overall behavior of the model)
+Two principal types of agents:
+
+* Producers - creators of products or services that want to have consumers eventually buy them.
+* Consumers - people that need or want products and services and are willing to buy them if they meet enough of their needs at the right time.
+
+Producers have a value propisition that is in the format of a product hypothesis. This is the product that they are testing out, building, or selling. This will be represented as an array of features. Inspired by Alexrod and his work on culture dissemination:
+
+https://deepblue.lib.umich.edu/bitstream/handle/2027.42/67489/10.1177_0022002797041002001.pdf
+
+Consumers have an underserved need that the producers attempt to fill with their product offering. This is represented as an array of features like the producer and when they match within a necessary threshold the consumer will buy the product. 
+
+The producers can use different strategies when getting feedback from consumers: 
+
+* Fixed - leave things the way they are (no feedback and sure of their solution)
+* Random - randomly change their offering (no feedback and not sure of their solution)
+* Feedback - based on the mismatch between the value propisition and the underserved need the producer will update their offering.
+
+When they change their product effort is expended to change the value propisition of the product. 
 
 ## HOW TO USE IT
 
-(how to use the model, including a description of each of the items in the Interface tab)
+As with the Axelrod model you can change the number of traits and features for the value propisition (and underserved need for consumers). 
 
-Each producer has a 
+Also, you can select which strategy the producer will use through the chooser box. 
 
-http://www-personal.umich.edu/~axe/research/Dissemination.pdf 
+Setup will generate a new set of consumers and one producer. Reset will keep the same consumer network, but reset all values.
+
+There are two main ways to monitor the model as it progresses:
+
+* Effort - the raw amount of effort used by the producer to update their value propisition.
+* Consumers sold - the graph of consumers that have purchased the producers product based on matching their underserved need.
+
+In the world you will see all consumers start with a white color when they do not have a solution. When they are sold a solution they turn red.
 
 ## THINGS TO NOTICE
 
-(suggested things for the user to notice while running the model)
+What has been most interesting so far is that the random strategy uses slightly more effort on average, but does about as well as the feedback strategy. 
 
 ## THINGS TO TRY
 
-(suggested things for the user to try to do (move sliders, switches, etc.) with the model)
+A few things to try:
+
+* Increase the number of traits and features
+* Try different strategies
 
 ## EXTENDING THE MODEL
 
-(suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)
+The most interesting extensions to the model will be adding new strategies for the producers to try. For example:
 
-## NETLOGO FEATURES
+* Batch based feedback - collect feedback and change based on batches of average feedback
+* Small changes - drift towards consumer's unmet needs rather than making huge changes. 
 
-(interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
+A few other aspects that would extend the model:
+
+* Network-based dissemination for consumers of products they have bought
+* Implement a threshold which the consumers will accept an imperfect value prop
+* Change the number of consumers that are in the pool to see how different strategies work for different sizes of customer pools
+* Don't allow producers to sell to consumers every turn to more realistically simulate the fact that sales cycles
 
 ## RELATED MODELS
 
 (models in the NetLogo Models Library and elsewhere which are of related interest)
 
-The inspiration for a lot of the culture aspects was from this model:
+The inspiration for the culture aspects was from this model:
 
 http://ccl.northwestern.edu/netlogo/models/community/Axelrod%20-%20Network
 
 ## CREDITS AND REFERENCES
 
-(a reference to the model's URL on the web if it has one, as well as any other necessary credits, citations, and links)
+Axelrod's The Dissemination of Culture paper has been a huge inspiration for how to model the producer's value propisition and the consumer's unmet need:
+
+https://deepblue.lib.umich.edu/bitstream/handle/2027.42/67489/10.1177_0022002797041002001.pdf
 @#$#@#$#@
 default
 true
