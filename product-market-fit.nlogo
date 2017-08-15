@@ -23,8 +23,9 @@ to setup
   set-default-shape producers "house"
   set-default-shape consumers "person"
 
-  ;; setup network of consumers
-  nw:generate-preferential-attachment consumers links num-agents [
+  ;; setup network of consumers - not using network for now
+  ;;nw:generate-preferential-attachment consumers links num-agents [
+  create-consumers num-agents [
     setxy random-xcor random-ycor
     set color white
 
@@ -357,11 +358,11 @@ Customers:
 
 ## Environment
 
-The environment is a network of consumers that the producer has access to.
+The environment is a number of consumers that the producer has access to (as they would in a particular industry). 
 
 ## Order of Events
 
-1. SETUP consumer network and producer
+1. SETUP consumers and producer
 2. When GO ask every consumer to compare their unmet need with the producers value proposition
 3. If the consumer is matched then their need is met
 4. Ask producer to update their value proposition based on their strategy
@@ -378,7 +379,7 @@ Outputs:
 
 * Total effort expended by the producer
 * Graph of number of consumers that have bought the producer's product
-* World network of consumers that turn red when they have bought the producer's product
+* World of consumers that turn red when they have bought the producer's product
 
 ## Model Execution
 
@@ -388,8 +389,8 @@ A Behavior Space experiment has been setup to explore the different producer str
 
 ## User Interface
 
-* Setup - creates a new network of consumers (with unmet needs) and producer (with a value proposition)
-* Reset - keeps the consumer network, but resets the purchases
+* Setup - creates a new set of consumers (with unmet needs) and producer (with a value proposition)
+* Reset - keeps the consumers, but resets the purchases
 * Go - starts the model running
 
 ## Model Documentation
@@ -439,7 +440,7 @@ As with the Axelrod model you can change the number of traits and features for t
 
 Also, you can select which strategy the producer will use through the chooser box. 
 
-Setup will generate a new set of consumers and one producer. Reset will keep the same consumer network, but reset all values.
+Setup will generate a new set of consumers and one producer. Reset will keep the same consumers, but reset all values.
 
 There are two main ways to monitor the model as it progresses:
 
