@@ -110,7 +110,7 @@ end
 ;; to-report consumer-decision method to decide if the consumer should buy the producers value-prop based on distance away within some threshold
 
 to-report product-market-fit? [ consumer1 producer1 ]
-  ifelse sum product-market-distance consumer1 producer1 = 0 [
+  ifelse abs-sum product-market-distance consumer1 producer1 = 0 [
     report true
   ] [
     report false
