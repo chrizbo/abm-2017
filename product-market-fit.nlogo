@@ -68,7 +68,7 @@ to go
     set last-diff product-market-distance self one-of producers
 
     ;; if product-market-fit? self one-of producers [
-    if sum last-diff = 0 [
+    if abs-sum last-diff = 0 [
       ;; if the producer(s) matches the consumer's need then mark it
       set color red
       set current-value-prop one-of producers
@@ -160,6 +160,11 @@ to update-value-prop-feedback [ product-market-difference ]
 end
 
 ;; mixture of explore vs. exploit - batches of customer feedback to make adjustments
+
+;; sum of array with abs of each value
+to-report abs-sum [ the-list ]
+  report sum ( map [ [ a ] -> abs a ] the-list )
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 242
